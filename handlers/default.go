@@ -7,6 +7,8 @@ import (
 	"golang.org/x/exp/slog"
 )
 
+var name string = "noah costello"
+
 func New(log *slog.Logger) *DefaultHandler {
 	return &DefaultHandler{
 		Log: log,
@@ -28,6 +30,7 @@ func (h *DefaultHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (h *DefaultHandler) Get(w http.ResponseWriter, r *http.Request) {
 	var props ViewProps
 	props.Method = "GET"
+	props.Name = name
 
 	h.View(w, r, props)
 }
@@ -42,8 +45,9 @@ func (h *DefaultHandler) Post(w http.ResponseWriter, r *http.Request) {
 
 type ViewProps struct {
 	Method string
+	Name   string
 }
 
 func (h *DefaultHandler) View(w http.ResponseWriter, r *http.Request, props ViewProps) {
-	components.Page(props.Method).Render(r.Context(), w)
+	components.Page(props.Name).Render(r.Context(), w)
 }

@@ -8,35 +8,36 @@ css border() {
 	padding-bottom: 30px;
 }
 
-templ button() {
-	<button hx-post="/"
+templ button(route string) {
+	<button onclick="alert('Button clicked!')" hx-post="/{ route }"
     hx-trigger="click"
-    hx-target="#parent-div"
     hx-swap="outerHTML"
     >
-		"Click this button"
+		{ route }
 	</button>
 }
 
-templ Page(method string) {
+templ Page(name string) {
 	<html>
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Click Button</title>
+			<title>{ name }</title>
 			<script src="/assets/js/htmx.min.js"></script>
 		</head>
 		<body>
 			<header>
 				<div>
 					<div>
-						<h1>Testing</h1>
+						<h1>{ name }</h1>
 					</div>
 				</div>
 			</header>
 			<section>
 				<div>
-					@button()
+					@button("Resume")
+					@button("GitHub")
+					@button("Contact")
 				</div>
 			</section>
 		</body>
